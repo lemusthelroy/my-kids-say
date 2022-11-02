@@ -2,18 +2,20 @@ import { useEffect, useState } from "react";
 import { Entry, createClient } from "contentful";
 import ReactMarkdown from "react-markdown";
 
-const client = createClient({
-  space: process.env.CONTENTFUL_SPACE as string,
-  environment: "master", // defaults to 'master' if not set
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
-});
-
 interface IKidPost {
   title: string;
   body: string;
 }
 
+const client = createClient({
+  space: process.env.REACT_APP_CONTENTFUL_SPACE as string,
+  environment: "master", // defaults to 'master' if not set
+  accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN as string,
+});
+
 const App = () => {
+  console.log(process.env.CONTENTFUL_SPACE);
+
   const [entries, setEntries] = useState<Entry<IKidPost>[]>();
 
   const [currentEntry, setCurrentEntry] = useState<Entry<IKidPost>>();
@@ -26,6 +28,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    console.log("here");
     if (entries) {
       getNextQuote();
     }
